@@ -72,7 +72,11 @@ const schema = yup.object().shape({
     .required("Salary is a required field")
     .typeError("Should be numeric")
     .min(5000, "Salary should be more than 5000")
-    .max(99999, "Salary cannot be over 99999")
+    .max(99999, "Salary cannot be over 99999"),
+  password: yup.string().required("Password is required"),
+  passwordConf: yup
+    .string()
+    .oneOf([yup.ref("password"), null], "Passwords must match")
 });
 
 const EmployeeForm = () => {
@@ -106,6 +110,28 @@ const EmployeeForm = () => {
         <StyledInput placeholder="Enter Salary" {...register("salary")} />
         {formState.errors["salary"] && (
           <StyledError>{formState.errors["salary"].message}</StyledError>
+        )}
+      </StyledInputContainer>
+      <StyledInputContainer>
+        <StyledLabel>Password:</StyledLabel>
+        <StyledInput
+          type="password"
+          placeholder="Enter Password"
+          {...register("password")}
+        />
+        {formState.errors["password"] && (
+          <StyledError>{formState.errors["password"].message}</StyledError>
+        )}
+      </StyledInputContainer>
+      <StyledInputContainer>
+        <StyledLabel>Confirm Password:</StyledLabel>
+        <StyledInput
+          type="password"
+          placeholder="Enter Password Confirmation"
+          {...register("passwordConf")}
+        />
+        {formState.errors["passwordConf"] && (
+          <StyledError>{formState.errors["passwordConf"].message}</StyledError>
         )}
       </StyledInputContainer>
       <StyledInputContainer>
