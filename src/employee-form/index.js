@@ -59,6 +59,7 @@ const schema = yup.object().shape({
   dateOfBirth: yup
     .date()
     .required()
+    .typeError("Date of birth is required")
     .min(
       new Date(yearMin, 1, 1),
       `Date of birth should be after 1/1/${yearMin}`
